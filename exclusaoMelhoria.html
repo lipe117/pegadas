@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>Tela de Exclusão</title>
+</head>
+<body>
+    <!-- Criamos um formulário simples -->
+    <form name = "Excluir">
+        <p2>Excluir um registro através do código (RA) do alunos</p2><br><br>
+        Código : <br>
+        <input type = "number" name = "numRA"><br>
+        Nome : <br>
+        <input type = "text" name = "txtNome"><br>
+        email : <br>
+        <input type = "text" name = "txtEmail"><br>
+        Telefone : <br>
+        <input type = "text" name = "txtTelefone"><br><br>
+        <!-- Criamos 3 botões -->
+        <input type = "button" name = "btBuscar" value = "Buscar" onclick="buscar(event,this)">
+        <input type = "button" name = "btExcluir" value = "Excluir" onclick="excluir(event,this)">
+        <input type = "reset" value = "Limpar">
+    </form>
+    <!--Iniciamos a programação em javascript -->
+    <script type = "text/javascript">
+      //Criamos a função: buscar(event,this)
+      function buscar(event,form) {
+        event.preventDefault(); //para evitar o cancelamento de evento
+         const codigo = parseInt(document.Excluir.numRA.value);
+         if (codigo != ""){
+            const URL = 'http://localhost/api_CRUD/api/Alunos/'+codigo;
+            fetch(URL,{method:'GET'})
+                 .then(resp => resp.json())
+                 .then(data => mostrarRespostaBuscar(data))
+                 .catch(erro => console.log(erro));
+         }    
+      }
+      //Criamos a função: mostrarRespostaBuscar(data)
+      function mostrarRespostaBuscar(data) {
+         console.log(data);
+         if (data.status != "sucess"){
+            alert("Registro não encontrado !!!");
+         }
+         else{//trazer os dados para os campos do formulário
+            document.Excluir.txtNome.value = data.information.nome;
+            document.Excluir.txtEmail.value = data.information.email;
+            document.Excluir.txtTelefone.value = data.information.telefone;            
+         }        
+      }
+      //Criamos a função: excluir(event,this)
+      function excluir(event,form) {
+         event.preventDefault(); //para evitar o cancelamento de evento
+         const codigo = parseInt(document.Excluir.numRA.value);
+         if (codigo != ""){
+            const URL = 'http://localhost/api_CRUD/api/Alunos/'+codigo;
+            fetch(URL,{method:'DELETE'})
+                 .then(resp => resp.json())
+                 .then(data => mostrarRespostaDelete(data))
+                 .catch(erro => console.log(erro));
+         }        
+      }
+      //Criamos a função: mostrarRespostaDelete(data)
+      function mostrarRespostaDelete(data) {
+         console.log(data);
+         if (data.status == "sucess"){
+            alert("Dados excluidos com sucesso");
+         }
+         else{
+            alert("Erro ao excluir !!!");
+         }
+         //limpar os campos no formulário
+         document.Excluir.numRA.value = ""; 
+         document.Excluir.txtNome.value = ""; 
+         document.Excluir.txtEmail.value = ""; 
+         document.Excluir.txtTelefone.value = "";        
+      }
+    </script>    
+</body>
+</html>

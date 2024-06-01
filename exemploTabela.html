@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>ConsultaAll</title>
+    <!--Estilo para cada celula (td) da tabela -->
+    <style>
+        table,td,th {
+           border: solid 1px black;  
+        }
+    </style>
+</head> 
+<body>
+    <!-- Criamos um container (painel) para colocar uma tabela que mostre todos os registros -->
+    <div id = "tabelaAlunos"><h2>Exemplo da tabela em html</h2></div>
+    <!-- Iniciamos a programação JavaScript -->
+    <script type = "text/JavaScript">
+        criarTabela();
+        //Criamos a função criarTable()
+        function criarTabela() {
+            //Elementos da tabela em html: um estrutura de uma tabela
+            var tabela = document.createElement("table");
+            var cabecalho = document.createElement("thead");
+            var corpo = document.createElement("tbody");
+
+            /*Montar Cabeçalho da tabela:*/
+            //Criamos uma linha:
+            var tr = document.createElement("tr");
+            //Criamos 4 colunas:
+            var thRA = document.createElement("th");
+            var thNome = document.createElement("th");
+            var thEmail = document.createElement("th");
+            var thTelefone = document.createElement("th");
+
+            //Adicionar os campos da coluna na linha do cabeçalho
+            thRA.appendChild(document.createTextNode("RA"));
+            tr.appendChild(thRA);
+
+            thNome.appendChild(document.createTextNode("Nome"));
+            tr.appendChild(thNome);
+
+            thEmail.appendChild(document.createTextNode("Email"));
+            tr.appendChild(thEmail);
+
+            thTelefone.appendChild(document.createTextNode("Telefone"));
+            tr.appendChild(thTelefone);
+
+            //Adicionar a linha no cabeçalho
+            cabecalho.appendChild(tr);
+            //adicional cabeçalho na tabela
+            tabela.appendChild(cabecalho);
+
+            //Criar uma linha para corpo
+            var tr = document.createElement("tr");
+            //Registro RA:
+            var tdRA = document.createElement("td");
+            var textoRA = document.createTextNode("202389899");
+            tdRA.appendChild(textoRA);
+            tr.appendChild(tdRA);
+            //Registro NOME:
+            var tdNome = document.createElement("td");
+            var textoNome = document.createTextNode("Camille Yu Han");
+            tdNome.appendChild(textoNome);
+            tr.appendChild(tdNome);
+            //Registro EMAIL:
+            var tdEmail = document.createElement("td");
+            var textoEmail = document.createTextNode("cyh@gamil.com");
+            tdEmail.appendChild(textoEmail);
+            tr.appendChild(tdEmail);
+            //Registro TELEFONE:
+            var tdTelefone = document.createElement("td");
+            var textoTelefone = document.createTextNode("9983456789");
+            tdTelefone.appendChild(textoTelefone);
+            tr.appendChild(tdTelefone);
+
+            //Anexar os campos no corpo da tabela
+            corpo.appendChild(tr);     
+           
+            //adicionar corpo na tabela
+            tabela.appendChild(corpo);
+
+            //Adicionar a tabela no conteinar (painel) div que exibe na tela
+            document.getElementById("tabelaAlunos").appendChild(tabela);            
+        }
+    </script>    
+</body>
+</html>

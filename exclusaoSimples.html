@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>Tela de Exclusão</title>
+</head>
+<body>
+    <!-- Criamos um formulário simples -->
+    <form name = "Excluir">
+        <p2>Excluir um registro através do código (RA) do alunos</p2><br><br>
+        Código : <br>
+        <input type = "number" name = "numRA"><br><br>
+        <!-- Criamos dois botões -->
+        <input type = "button" name = "btExcluir" value = "Excluir" onclick="excluir(event,this)">
+        <input type = "reset" value = "Limpar">
+    </form>
+    <!--Iniciamos a programação em javascript -->
+    <script type = "text/javascript">
+      //Criamos a função: excluir(event,this)
+      function excluir(event,form) {
+         event.preventDefault(); //para evitar o cancelamento de evento
+         const codigo = parseInt(document.Excluir.numRA.value);
+         if (codigo != ""){
+            const URL = 'http://localhost/api_CRUD/api/Alunos/'+codigo;
+            fetch(URL,{method:'DELETE'})
+                 .then(resp => resp.json())
+                 .then(data => mostrarRespostaDelete(data))
+                 .catch(erro => console.log(erro));
+         }        
+      }
+      //Criamos a função: mostrarRespostaDelete(data)
+      function mostrarRespostaDelete(data) {
+         console.log(data);
+         if (data.status == "sucess"){
+            alert("Dados excluidos com sucesso");
+         }
+         else{
+            alert("Erro ao excluir !!!");
+         }
+         //limpar o campo código no formulário
+         document.Excluir.numRA.value = "";        
+      }
+    </script>    
+</body>
+</html>

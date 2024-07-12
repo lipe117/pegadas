@@ -3,19 +3,31 @@
 <head>
     <meta charset="UTF-8">    
     <title>Tela de Exclusão</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <!-- Criamos um formulário simples -->
+    <div class="image">
+      <img src="Pegada.png" width="100%">
+  </div>
+    <div class="container">
     <form name = "Excluir">
-        <p2>Excluir um registro através do código (RA) do alunos</p2><br><br>
-        Código : <br>
-        <input type = "number" name = "numRA"><br>
+        <p2>Excluir um registro através do código dos Pets</p2><br><br>
+        Código:<br/>
+        <input type = "number" name = "numCod">
+        <br/>
+        Espécie : <br>
+        <input type = "text" name = "txtEspecie"><br>
+        Raça : <br>
+        <input type = "text" name = "txtRaca"><br>
         Nome : <br>
         <input type = "text" name = "txtNome"><br>
-        email : <br>
-        <input type = "text" name = "txtEmail"><br>
-        Telefone : <br>
-        <input type = "text" name = "txtTelefone"><br><br>
+        Última Localização : <br>
+        <input type = "text" name = "txtUlt_local"><br>
+        Nome do Dono: <br>
+        <input type = "text" name = "txtNome_dono"><br>
+        Contato do Dono : <br>
+        <input type = "text" name = "txtContato_dono"><br><b
         <!-- Criamos 3 botões -->
         <input type = "button" name = "btBuscar" value = "Buscar" onclick="buscar(event,this)">
         <input type = "button" name = "btExcluir" value = "Excluir" onclick="excluir(event,this)">
@@ -26,9 +38,9 @@
       //Criamos a função: buscar(event,this)
       function buscar(event,form) {
         event.preventDefault(); //para evitar o cancelamento de evento
-         const codigo = parseInt(document.Excluir.numRA.value);
+         const codigo = parseInt(document.Excluir.numCod.value);
          if (codigo != ""){
-            const URL = 'http://localhost/api_CRUD/api/Alunos/'+codigo;
+            const URL = 'http://localhost/api_CRUD/api/Pets/'+codigo;
             fetch(URL,{method:'GET'})
                  .then(resp => resp.json())
                  .then(data => mostrarRespostaBuscar(data))
@@ -42,17 +54,20 @@
             alert("Registro não encontrado !!!");
          }
          else{//trazer os dados para os campos do formulário
-            document.Excluir.txtNome.value = data.information.nome;
-            document.Excluir.txtEmail.value = data.information.email;
-            document.Excluir.txtTelefone.value = data.information.telefone;            
+                document.Excluir.txtEspecie.value = data.information.especie;
+                document.Excluir.txtRaca.value = data.information.raca;
+                document.Excluir.txtNome.value = data.information.nome; 
+                document.Excluir.txtUlt_local.value = data.information.ult_local;
+                document.Excluir.txtNome_dono.value = data.information.nome_dono; 
+                document.Excluir.txtContato_dono.value = data.information.contato_dono;          
          }        
       }
       //Criamos a função: excluir(event,this)
       function excluir(event,form) {
          event.preventDefault(); //para evitar o cancelamento de evento
-         const codigo = parseInt(document.Excluir.numRA.value);
+         const codigo = parseInt(document.Excluir.numCod.value);
          if (codigo != ""){
-            const URL = 'http://localhost/api_CRUD/api/Alunos/'+codigo;
+            const URL = 'http://localhost/api_CRUD/api/Pets/'+codigo;
             fetch(URL,{method:'DELETE'})
                  .then(resp => resp.json())
                  .then(data => mostrarRespostaDelete(data))
@@ -69,11 +84,15 @@
             alert("Erro ao excluir !!!");
          }
          //limpar os campos no formulário
-         document.Excluir.numRA.value = ""; 
-         document.Excluir.txtNome.value = ""; 
-         document.Excluir.txtEmail.value = ""; 
-         document.Excluir.txtTelefone.value = "";        
+            document.Excluir.numCod.value = "";
+            document.Excluir.txtEspecie.value = "";
+            document.Excluir.txtRaca.value = "";
+            document.Excluir.txtNome.value = ""; 
+            document.Excluir.txtUlt_local.value = "";
+            document.Excluir.txtNome_dono.value = "";
+            document.Excluir.txtContato_dono.value = "";         
       }
-    </script>    
+    </script> 
+    </div>   
 </body>
 </html>

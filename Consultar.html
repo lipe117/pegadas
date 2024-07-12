@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">    
     <title>Consulta</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <!-- Criamos um formulário para consulta -->
+    <div class="image">
+        <img src="Pegada.png" width="100%">
+    </div>
+    <div class="container">
     <form name = "Consultar">
         <p2>Consultando dados através código do Pet:</p2><br/><br/>        
         <!-- Código precisa, pois através dele(PK) para buscar dados -->
@@ -19,7 +24,11 @@
         Nome : <br>
         <input type = "text" name = "txtNome"><br>
         Última Localização : <br>
-        <input type = "text" name = "txtUlt_local"><br><br>
+        <input type = "text" name = "txtUlt_local"><br>
+        Nome do Dono: <br>
+        <input type = "text" name = "txtNome_dono"><br>
+        Contato do Dono : <br>
+        <input type = "text" name = "txtContato_dono"><br><br>
         <!-- Criamos um botão para a operação de busca -->
         <input type = "button" name = "btBuscar" value = "Consultar" onclick = "buscar(event, this)">
         <!-- Criamos um butão para limpar os campos -->
@@ -32,10 +41,10 @@
         function buscar(event, form){
             //Este comando é para prevenir o cancelamento de evento: evento de click->buscar os dados
             event.preventDefault();
-            //variável ra é um número inteiro. parseInt(...) converter texto para inteiro
+            //variável codigo é um número inteiro. parseInt(...) converter texto para inteiro
             const codigo = parseInt(document.Consultar.numCod.value);   
            
-            if ( codigo != "" ) { //RA não pode ser null, pois através dele para buscar dados
+            if ( codigo != "" ) { //codigo não pode ser null, pois através dele para buscar dados
                     //Endereço do api que construimos
                     const URL = 'http://localhost/api_CRUD/api/Pets/'+codigo;
                     //fetch(URL , options)
@@ -62,8 +71,11 @@
                 document.Consultar.txtRaca.value = data.information.raca;
                 document.Consultar.txtNome.value = data.information.nome; 
                 document.Consultar.txtUlt_local.value = data.information.ult_local;
+                document.Consultar.txtNome_dono.value = data.information.nome_dono; 
+                document.Consultar.txtContato_dono.value = data.information.contato_dono;
             }         
         }
     </script>
+    </div>
 </body>
 </html>

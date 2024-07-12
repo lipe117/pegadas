@@ -3,25 +3,33 @@
 <head>
     <meta charset="UTF-8">    
     <title>Tela de Alteração</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <!-- Criamos um formulário para alteração de dados -->
+    <div class="image">
+        <img src="Pegada.png" width="100%">
+    </div>
+    <div class="container">
     <form name = "Alterar">
         <br>
-        <p2>Alterar os dados através código do Aluno:</p2><br/><br/>        
+        <p2>Alterar os dados através código do Pet:</p2><br/><br/>        
         <!-- Código precisa, pois através dele(PK) para buscar dados -->
         Código: <br/>
         <input type = "number" name = "numCodigo">
         <br/>
-        Nome: <br/>
-        <input type = "text" name = "txtNome">
-        <br/>
-        e-mail: <br/>
-        <input type = "text" name = "txtEmail">
-        <br/>
-        Telefone: <br/>
-        <input type = "text" name = "txtTelefone">
-        <br/><br/>
+        Espécie : <br>
+        <input type = "text" name = "txtEspecie"><br>
+        Raça : <br>
+        <input type = "text" name = "txtRaca"><br>
+        Nome : <br>
+        <input type = "text" name = "txtNome"><br>
+        Última Localização : <br>
+        <input type = "text" name = "txtUlt_local"><br>
+        Nome do Dono: <br>
+        <input type = "text" name = "txtNome_dono"><br>
+        Contato do Dono : <br>
+        <input type = "text" name = "txtContato_dono"><br><br>
         <!-- Criamos 3 botões -->
         <input type = "button" name = "btBuscar" value = "Buscar" onclick = "buscar(event, this)">
         <input type = "button" name = "btAlterar" value = "Alterar" onclick = "alterar(event, this)">
@@ -34,8 +42,8 @@
             event.preventDefault(); //para evitar o cancelamento do evento
             //variável codigo é um número inteiro. parseInt(...) converter texto para inteiro
             const codigo = parseInt(document.Alterar.numCodigo.value);            
-            if ( codigo != "" ) { //RA não pode ser null, pois através dele para buscar dados                   
-                    const URL = 'http://localhost/api_CRUD/api/Alunos/'+codigo;                    
+            if ( codigo != "" ) { //Código não pode ser null, pois através dele para buscar dados                   
+                    const URL = 'http://localhost/api_CRUD/api/Pets/'+codigo;                    
                     fetch(URL , {method: 'GET'}) 
                         .then(resp => resp.json())                                    
                         .then(data => mostrarRespostaBuscar(codigo,data))                        
@@ -48,28 +56,37 @@
                 alert("Sem registro com este código : " + codigo + " !!!");
             }
             else {
-                //alert("Dados buscados com sucesso !!"); //pode ter ou não
+                alert("Dados buscados com sucesso !!");
                 console.log(data) ;
                 //colocando os dados buscados nos campos do formulário  
-                document.Alterar.txtNome.value = data.information.nome;
-                document.Alterar.txtEmail.value = data.information.email;
-                document.Alterar.txtTelefone.value = data.information.telefone; 
+                document.Alterar.txtEspecie.value = data.information.especie;
+                document.Alterar.txtRaca.value = data.information.raca;
+                document.Alterar.txtNome.value = data.information.nome; 
+                document.Alterar.txtUlt_local.value = data.information.ult_local;
+                document.Alterar.txtNome_dono.value = data.information.nome_dono; 
+                document.Alterar.txtContato_dono.value = data.information.contato_dono;
             }         
         }
         //Criamos a função: alterar(event,this)
         function alterar(event, form) {
             event.preventDefault(); //para evitar o cancelamento do evento
             //As variáveis para armazenar os dados digitados por usuário
-            const codigo_aluno = parseInt(document.Alterar.numCodigo.value);
-            const nome_aluno = document.Alterar.txtNome.value;
-            const email_aluno = document.Alterar.txtEmail.value;
-            const telefone_aluno = document.Alterar.txtTelefone.value;
+            const codigo_pet = parseInt(document.Alterar.numCodigo.value);
+            const especie_pet = document.Alterar.txtEspecie.value;
+            const raca_pet = document.Alterar.txtRaca.value;
+            const nome_pet = document.Alterar.txtNome.value;
+            const ult_local_pet = document.Alterar.txtUlt_local.value;
+            const nome_dono_pet = document.Alterar.txtNome_dono.value;
+            const contato_dono_pet = document.Alterar.txtContato_dono.value;
             //Uma lista para armazenar o conjunto de dados obtidos em formato JSON
             const dados = {                
-                codigo: codigo_aluno,
-                nome: nome_aluno,
-                email: email_aluno,
-                telefone: telefone_aluno,
+                codigo: codigo_pet,
+                especie: especie_pet,
+                raca: raca_pet,
+                nome: nome_pet,
+                ult_local: ult_local_pet,
+                nome_dono: nome_dono_pet,
+                contato_dono: contato_dono_pet,
             };
             //Uma lista para os dados de configuração
             const options = {
@@ -78,8 +95,8 @@
                 //O comando JSON.stringify(dados) converter o formato JSON para texto normal
                 body: JSON.stringify(dados),
             };
-            if (codigo_aluno != ""){
-                const URL = 'http://localhost/api_CRUD/api/Alunos/'+codigo_aluno; 
+            if (codigo_pet != ""){
+                const URL = 'http://localhost/api_CRUD/api/Pets/'+codigo_pet; 
                 fetch(URL, options)
                     .then(resp => resp.json())
                     .then(data => mostrarRespostaAlterar(data))
@@ -95,11 +112,14 @@
                 alert("Erro ao alterar os dados !!!");
             }
             //limpar os dados nos campos no formulário
-            document.Alterar.numCodigo.value = "";
-            document.Alterar.txtNome.value = "";  
-            document.Alterar.txtEmail.value = "";  
-            document.Alterar.txtTelefone.value = "";              
+            document.Alterar.txtEspecie.value = "";
+            document.Alterar.txtRaca.value = "";
+            document.Alterar.txtNome.value = ""; 
+            document.Alterar.txtUlt_local.value = "";
+            document.Alterar.txtNome_dono.value = "";
+            document.Alterar.txtContato_dono.value = "";           
         }
-    </script>    
+    </script>
+    </div>    
 </body>
 </html>

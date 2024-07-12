@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">    
     <title>Cadastro de Pets</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <!-- Criamos um formulário para o cadastro de alunos (inclusão de dados)-->
+    <!-- Criamos um formulário para o cadastro de pets (inclusão de dados)-->
+    <div class="image">
+        <img src="Pegada.png" width="100%">
+    </div>
+    <div class="container">
     <form  name = "Cadastro">
         <p2>Cadastro de Pets:</p2><br><br>
-        <!-- O código do aluno não é necssario, pois é automático -->
+        <!-- O código do pet não é necssario, pois é automático -->
         Espécie : <br>
         <input type = "text" name = "txtEspecie"><br>
         Raça : <br>
@@ -31,20 +36,20 @@
         function salvar(event, form) {
             event.preventDefault(); //para evitar o cancelamento do evento
             //As variáveis para armazenar os dados digitados por usuário
-            const especie = document.Cadastro.txtEspecie.value;
-            const raca = document.Cadastro.txtRaca.value;
-            const nome = document.Cadastro.txtNome.value;
-            const ult_local = document.Cadastro.txtUlt_local.value;
-            const nome_dono = document.Cadastro.txtNome_dono.value;
-            const contato_dono = document.Cadastro.txtContato_dono.value;
+            const especie_pet = document.Cadastro.txtEspecie.value;
+            const raca_pet = document.Cadastro.txtRaca.value;
+            const nome_pet = document.Cadastro.txtNome.value;
+            const ult_local_pet = document.Cadastro.txtUlt_local.value;
+            const nome_dono_pet = document.Cadastro.txtNome_dono.value;
+            const contato_dono_pet = document.Cadastro.txtContato_dono.value;
             //Uma lista para armazenar o conjunto de dados obtidos em formato JSON
             const dados = {
-                especie_pet: especie,
-                raca_pet: raca,
-                nome_pet: nome,
-                ult_local_pet: ult_local,
-                nome_dono_pet: nome_dono,
-                contato_dono_pet: contato_dono,
+                especie: especie_pet,
+                raca: raca_pet,
+                nome: nome_pet,
+                ult_local: ult_local_pet,
+                nome_dono: nome_dono_pet,
+                contato_dono: contato_dono_pet,
             };
             //Uma lista para os dados de configuração
             const options = {
@@ -53,7 +58,7 @@
                 //O comando JSON.stringify(dados) converter o formato JSON para texto normal
                 body: JSON.stringify(dados),
             };
-            if (nome != ""){
+            if (nome_pet != ""){
                 const URL = 'http://localhost/api_CRUD/api/Pets'; //endereço do api
                 fetch(URL, options)
                     .then(resp => resp.json())
@@ -69,7 +74,14 @@
             }else{
                 alert("Erro ao incluir os dados !!!");
             }            
+            document.Alterar.txtEspecie.value = "";
+            document.Alterar.txtRaca.value = "";
+            document.Alterar.txtNome.value = ""; 
+            document.Alterar.txtUlt_local.value = "";
+            document.Alterar.txtNome_dono.value = "";
+            document.Alterar.txtContato_dono.value = ""; 
         }
-    </script>    
+    </script>
+    </div>    
 </body>
 </html>

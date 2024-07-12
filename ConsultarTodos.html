@@ -9,14 +9,18 @@
             border: solid 1px black;
         }
     </style>
+        <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>       
+<body>  
+    <div class="image">
+        <img src="Pegada.png" width="100%">
+    </div>     
     <!-- Criamos um container (painel) para colocar uma tabela que mostrar todos os dados -->  
-    <div id = "tabelaAlunos"><h2>Registros de alunos:</h2></div>    
+    <div id = "tabelaPets" class="container"><h2>Registros de Pets:</h2></div>    
     <!-- Iniciamos programação JavaScript -->
     <script type="text/javascript">            
         //Endereço do api que construimos
-        const URL = 'http://localhost/api_CRUD/api/Alunos/';            
+        const URL = 'http://localhost/api_CRUD/api/Pets/';            
         //fetch(URL , options)        
         fetch( URL , {method: 'GET'} ) //Método 'GET'
             //para transformar a resposta de texto puro para JSON            
@@ -30,7 +34,7 @@
         function mostrarResposta(data){
             console.log(data) ;       
             if (data.status == "error"){//ver o arquivo index.php do api que construimos
-                alert("Sem regitros de alunos!!!");
+                alert("Sem regitros de Pets!!!");
             } else {
                 //chamar outra função criarTabela(...) com informação (parâmetro): data.information
                 criarTabela(data.information);
@@ -47,23 +51,34 @@
             // Criamos uma linha:
             var tr = document.createElement("tr");
             // Criamos 4 colunas para cabeçalho: 
-            var thRA = document.createElement("th");
+            var thCodigo = document.createElement("th");
+            var thEspecie = document.createElement("th");
+            var thRaca = document.createElement("th");
             var thNome = document.createElement("th");
-            var thEmail = document.createElement("th");
-            var thTelefone = document.createElement("th");
-           
+            var thUlt_local = document.createElement("th");
+            var thNome_dono = document.createElement("th");
+            var thContato_dono = document.createElement("th");
             //Adicionar os campos da coluna na linha do cabecalho
-            thRA.appendChild( document.createTextNode("RA") ) ;
-            tr.appendChild(thRA);           
+            thCodigo.appendChild( document.createTextNode("Código") ) ;
+            tr.appendChild(thCodigo);           
 
+            thEspecie.appendChild( document.createTextNode("Espécie") ) ;
+            tr.appendChild(thEspecie);
+
+            thRaca.appendChild( document.createTextNode("Raça") ) ;
+            tr.appendChild(thRaca);            
+            
             thNome.appendChild( document.createTextNode("Nome") ) ;
             tr.appendChild(thNome);
-
-            thEmail.appendChild( document.createTextNode("Email") ) ;
-            tr.appendChild(thEmail);            
             
-            thTelefone.appendChild( document.createTextNode("Telefone") ) ;
-            tr.appendChild(thTelefone);
+            thUlt_local.appendChild( document.createTextNode("Última Localização") ) ;
+            tr.appendChild(thUlt_local);
+
+            thNome_dono.appendChild( document.createTextNode("Nome do Dono") ) ;
+            tr.appendChild(thNome_dono);            
+            
+            thContato_dono.appendChild( document.createTextNode("Contato do Dono") ) ;
+            tr.appendChild(thContato_dono);
             
             //adicionar a linha no cabecalho
             cabecalho.appendChild(tr);
@@ -76,27 +91,41 @@
             conteudo.forEach(item => {
                 //Criar uma linha
                 var tr = document.createElement("tr");
-                //Regisro RA:
-                var tdRA = document.createElement("td");
-                var textoRA = document.createTextNode(item.codigo);
-                tdRA.appendChild(textoRA);
-                tr.appendChild(tdRA);
-                //Registro NOME:
+                //Registro Código:
+                var tdCodigo = document.createElement("td");
+                var textoCodigo = document.createTextNode(item.codigo);
+                tdCodigo.appendChild(textoCodigo);
+                tr.appendChild(tdCodigo);
+                //Registro Espécie:
+                var tdEspecie = document.createElement("td");
+                var textoEspecie = document.createTextNode(item.especie);
+                tdEspecie.appendChild(textoEspecie);
+                tr.appendChild(tdEspecie);
+                //Registro Raça:
+                var tdRaca = document.createElement("td");
+                var textoRaca = document.createTextNode(item.raca);
+                tdRaca.appendChild(textoRaca);
+                tr.appendChild(tdRaca);
+                //Registro Nome do Pet:
                 var tdNome = document.createElement("td");
                 var textoNome = document.createTextNode(item.nome);
                 tdNome.appendChild(textoNome);
-                tr.appendChild(tdNome);
-                //Registro EMAIL:
-                var tdEmail = document.createElement("td");
-                var textoEmail = document.createTextNode(item.email);
-                tdEmail.appendChild(textoEmail);
-                tr.appendChild(tdEmail);
-                //Registro TELEFONE:
-                var tdTelefone = document.createElement("td");
-                var textoTelefone = document.createTextNode(item.telefone);
-                tdTelefone.appendChild(textoTelefone);
-                tr.appendChild(tdTelefone);                
-                
+                tr.appendChild(tdNome);                
+                //Registro Última Localização:
+                var tdUlt_local = document.createElement("td");
+                var textoUlt_local = document.createTextNode(item.ult_local);
+                tdUlt_local.appendChild(textoUlt_local);
+                tr.appendChild(tdUlt_local);
+                //Registro Nome do Dono:
+                var tdNome_dono = document.createElement("td");
+                var textoNome_dono = document.createTextNode(item.nome_dono);
+                tdNome_dono.appendChild(textoNome_dono);
+                tr.appendChild(tdNome_dono);
+                //Registro Contato do Dono:
+                var tdContato_dono = document.createElement("td");
+                var textoContato_dono = document.createTextNode(item.contato_dono);
+                tdContato_dono.appendChild(textoContato_dono);
+                tr.appendChild(tdContato_dono); 
                 //Anexar os campos no corpo da tabela
                 corpo.appendChild(tr);
             });  
@@ -104,7 +133,7 @@
             tabela.appendChild(corpo);            
 
             //Adicionar a tabela no container div e exibe na tela
-            document.getElementById("tabelaAlunos").appendChild(tabela);
+            document.getElementById("tabelaPets").appendChild(tabela);
         }
     </script>
 </body>

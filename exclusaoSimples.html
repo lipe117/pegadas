@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">    
     <title>Tela de Exclusão</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <!-- Criamos um formulário simples -->
+    <div class="image">
+      <img src="Pegada.png" width="100%">
+  </div>
+  <div class="container">
     <form name = "Excluir">
-        <p2>Excluir um registro através do código (RA) do alunos</p2><br><br>
+        <p2>Excluir um registro através do código do Pet</p2><br><br>
         Código : <br>
-        <input type = "number" name = "numRA"><br><br>
+        <input type = "number" name = "numCod"><br><br>
         <!-- Criamos dois botões -->
         <input type = "button" name = "btExcluir" value = "Excluir" onclick="excluir(event,this)">
         <input type = "reset" value = "Limpar">
@@ -19,9 +24,9 @@
       //Criamos a função: excluir(event,this)
       function excluir(event,form) {
          event.preventDefault(); //para evitar o cancelamento de evento
-         const codigo = parseInt(document.Excluir.numRA.value);
+         const codigo = parseInt(document.Excluir.numCod.value);
          if (codigo != ""){
-            const URL = 'http://localhost/api_CRUD/api/Alunos/'+codigo;
+            const URL = 'http://localhost/api_CRUD/api/Pets/'+codigo;
             fetch(URL,{method:'DELETE'})
                  .then(resp => resp.json())
                  .then(data => mostrarRespostaDelete(data))
@@ -38,8 +43,9 @@
             alert("Erro ao excluir !!!");
          }
          //limpar o campo código no formulário
-         document.Excluir.numRA.value = "";        
+         document.Excluir.numCod.value = "";        
       }
-    </script>    
+    </script>
+    </div>    
 </body>
 </html>

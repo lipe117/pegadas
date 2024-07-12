@@ -1,0 +1,43 @@
+Configuração:
+
+1) Ao iniciar o Xampp:
+
+Adicionar a Pasta api_CRU e conectarBD à pasta htdocs do Xampp
+
+2) Criar um banco de dados chamado 'projwebservices'
+
+3) Criar a seguinte tabela dentro do banco de dados projwebservices:
+
+CREATE TABLE pets (
+  
+  codigo int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  especie varchar(50) DEFAULT NULL,
+  raca varchar(50) DEFAULT NULL,
+  nome varchar(30) DEFAULT NULL,
+  ult_local varchar(50) DEFAULT NULL,
+  nome_dono varchar(30) DEFAULT NULL,
+  contato_dono varchar(30) DEFAULT NULL
+) ;
+
+
+4) Em seguida, criar uma segunda tabela no mesmo banco de dados:
+
+
+CREATE TABLE apilogin (
+  
+  codigoLogin int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  login varchar(50) DEFAULT NULL,
+  senha varchar(20) DEFAULT NULL,
+  perfil varchar(50) DEFAULT NULL
+
+) ;
+
+- E inserir 2 registros na tabela <apilogin>
+
+INSERT INTO APILogin (login, senha, perfil) VALUES ('ADM', 'Adm123', 'ADM');
+INSERT INTO APILogin (login, senha, perfil) VALUES ('SEC', 'Sec123', 'SEC');
+
+
+
+
+5) Todos os outros arquivos devem ficar na mesma pasta.

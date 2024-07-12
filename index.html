@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>Tela de Login e Senha</title>
+    <!--Criamos estilos para tela usando .css -->
+    <!-- Centralizar formulário na tela -->
+         <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="image">
+        <img src="Pegada.png" width="100%">
+    </div>
+    <!-- Criamos um container ou painel div junto com o formulário para login e senha -->
+    <div id = "conteudo" class="container">
+        <form name = "form1">
+            <fieldset>
+                <h2>Acesso aos APIs</h2>
+                Login : <br><br>
+                <input type = "text" name = "txtLogin"><br><br>
+                Senha : <br><br>
+                <input type = "password" name = "txtSenha"><br><br>
+                <!-- Criamos um botão para realizar a operação de exibir a lista de serviços -->
+                <button onclick="buscar(event, this)">Entrar</button>
+            </fieldset>
+            <div id = "mensagem"></div>
+        </form>
+    </div>
+    <!-- Iniciamos a programação em JavaScript -->
+    <script type = "text/JavaScript">
+        var perfil = ""; //inicializar com valor vazio
+        //Vamos criar a função: buscar(event, this)
+        function buscar(event,form) {
+            event.preventDefault(); //para evitar o cancelamento de evento
+            const tela_login = document.form1.txtLogin.value;
+            const tela_senha = document.form1.txtSenha.value;
+            //uma lista para armazenar os dados obtidos em formato JSON
+            const dados = {
+                login: tela_login,
+                senha: tela_senha,
+            };
+            //Uma lista de dados para configuração
+            const options = {
+                method: 'POST', //protocolo para enviar os dados para Bnaco
+                header: {'Content-Type':'aplication/json',},
+                body: JSON.stringify(dados), //converter dados em formato JSON para texto normal
+            };
+            if (tela_login != "" && tela_senha != ""){
+                const URL = 'http://localhost/api_CRUD/api/Login'; //endereço do api: Login
+                fetch( URL, options)
+                    .then(resp => resp.json())
+                    .then(data => mostrarResposta(data))
+                    .catch(erro => console.log(erro));
+            }
+        }
+        //Criamos a função: mostrarResposta(data)
+        function mostrarResposta(data) {
+            console.log(data);
+            if (data.status == "error"){
+                document.getElementById("mensagem").textContent = data.information;
+            }
+            else{
+                perfil = data.information.perfil; //pegar o valor do perfil do Banco de dados
+                if (perfil.toLowerCase().includes("adm"))
+                    location.href = "listaAll.html";
+                else 
+                    location.href = "lista.html";
+            }            
+        }
+    </script>    
+</body>
+</html>

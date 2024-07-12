@@ -16,7 +16,7 @@
         public static function select(int $id)
         {
             //Criar duas variáveis para tabela e primeira coluna
-            $tabela = "apets"; //variável para nome da tabela
+            $tabela = "pets"; //variável para nome da tabela
             $coluna = "codigo"; //variável para chave primaria
             
             // Conectando com o banco de dados através da classe (objeto) PDO

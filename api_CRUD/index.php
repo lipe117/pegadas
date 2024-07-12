@@ -1,6 +1,7 @@
 <?php
     // Este programa é para execução do Api_Consultas
-    include 'PetsService.php'; //incluir arquivo PetsService.php    
+    include 'PetsService.php'; //incluir arquivo PetsService.php  
+    include 'loginService.php';  
     //Colocando o cabecalho para retornar os dados em formado json na saida
     header("Content-Type: application/json; charset=UTF-8"); 
     header("Access-Control-Allow-Origin: *");  // Necessário para a mesma máquina (localhost)
